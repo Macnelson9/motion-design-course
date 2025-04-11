@@ -154,8 +154,15 @@
 			transform: translateX(0);
 		}
 
+		.has-submenu ul a {
+			transition-property: background-color, padding;
+		}
 
-		nav ul a, .has-submenu::after, .has-submenu ul {
+		.has-submenu ul a::after {
+			transition-property: opacity;
+		}
+
+		nav ul a, .has-submenu::after, .has-submenu ul, .has-submenu ul a, .has-submenu ul a::after {
 			transition-duration: var(--def-transition-duration);
 			transition-timing-function: ease-in-out;
 		}
