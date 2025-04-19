@@ -235,6 +235,107 @@
 		}
 
 		/* Air */
+		#illustration * {
+			transform-box: fill-box;
+		}
+
+		[id^='star-'] {
+			animation: 6s ease-in-out infinite alternate pulse;
+			transform-origin: center;
+		}
+
+		#star-02 {animation-delay: 1.2s}
+		#star-03 {animation-delay: 2.4s}
+		#star-04 {animation-delay: 3.6s}
+		#star-05 {animation-delay: 4.8s}
+
+		@keyframes pulse {
+			0%, 100% {
+				transform: scale(1);
+				opacity: 1;
+			}
+
+			50% {
+				transform: scale(0);
+				opacity: 0;
+			}
+		}
+
+		/* Location */
+		#location-pin {
+			animation: 4s infinite bounce;
+		}
+
+		@keyframes bounce {
+			0%,20%,53%,to {
+				animation-timing-function:cubic-bezier(.215,.61,.355,1);
+				transform:translateZ(0);
+			}
+			
+			40%,43%{
+				animation-timing-function:cubic-bezier(.755,.05,.855,.06);
+				transform:translate3d(0,-30px,0) scaleY(1.1);
+			}
+			
+			70%{
+				animation-timing-function:cubic-bezier(.755,.05,.855,.06);
+				transform:translate3d(0,-15px,0) scaleY(1.05);
+			}
+			
+			80%{
+				transition-timing-function:cubic-bezier(.215,.61,.355,1);
+				transform:translateZ(0) scaleY(.95);
+			}
+			
+			90%{
+				transform:translate3d(0,-4px,0) scaleY(1.02);
+			}
+		}
+
+		/* Dotted line */
+		#dotted-line {
+			stroke: #aed1e5;
+			stroke-width: 3px;
+			stroke-dasharray: 8, 8;
+			stroke-dashoffset: 120;
+			stroke-linecap: round;
+			animation: 5s linear infinite dash;
+		}
+
+		@keyframes dash {
+			to {
+				stroke-dashoffset: 0;
+			}
+		}
+
+		/* Travel icons */
+		.animated-icon {
+			transform-origin: center;
+		}
+		
+		.animated {
+			animation: 1s ease-in-out breathe;
+		}
+
+		#icon-boat {
+			animation-delay: 1s;
+		}
+		#icon-bus {
+			animation-delay: 2s;
+		}
+		#icon-train {
+			animation-delay: 3s;
+		}
+
+		@keyframes breathe {
+			0%, 100% {
+				transform: scale(1);
+			}
+
+			50% {
+				transform: scale(1.4);
+			}
+		}
 	</style>
 </head>
 <body>
@@ -292,6 +393,28 @@
 		})
 
 		// Air
+		function animateIcons() {
+			const icons = document.querySelectorAll('.animated-icon');
+
+			icons.forEach(icon => {
+				icon.classList.remove('animated');
+			})
+
+			// Force reflow to restart animation
+			void document.querySelector('#hero').offsetWidth;
+
+			icons.forEach(icon => {
+				icon.classList.add('animated');
+			});
+		}
+
+		// Initial animation
+		animateIcons();
+
+		// Repeat animation
+		setInterval(() => {
+			animateIcons();
+		}, 6000);
 	</script>
 </body>
 </html>
