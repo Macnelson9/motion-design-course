@@ -71,7 +71,7 @@
 		}
 
 		#hero {
-			background: url('illustrations/wolves@c.svg') top center no-repeat;
+			/* background: url('illustrations/wolves@c.svg') top center no-repeat; */
 			background-size: cover;
 			min-height: 100dvh;
 			display: flex;
@@ -214,11 +214,64 @@
 		}
 
 		/* Air */
+		#hero {
+			position: relative;
+		}
+
+		#wolves-wrapper {
+			width: 100%;
+			height: 100dvh;
+			position: absolute;
+			pointer-events: none;
+		}
+
+		div[id*='wolves-bg-'] {
+			background-repeat: none;
+			background-size: cover;
+			background-position: bottom center;
+			width: 100%;
+			height: 100dvh;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -1;
+		}
+
+		#wolves-bg-1 {
+			background-image: url('')
+		}
+		#wolves-bg-2 {
+			background-image: url('')
+		}
+		#wolves-bg-3 {
+			background-image: url('')
+		}
+		#wolves-bg-4 {
+			background-image: url('')
+		}
+		#wolves-bg-5 {
+			background-image: url('')
+		}
+
+		#wolves-wrapper::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			z-index: -1;
+			background: linear-gradient(180deg, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0) 50%);
+		}
 	</style>
 </head>
 <body>
 	<section id="hero">
 		<!-- Air -->
+		 <div id="wolves-wrapper">
+			<div id="wolves-bg-1" data-speed="0.2"></div>
+			<div id="wolves-bg-2" data-speed="2"></div>
+			<div id="wolves-bg-3" data-speed="4"></div>
+			<div id="wolves-bg-4" data-speed="6"></div>
+			<div id="wolves-bg-5" data-speed="10"></div>
+		 </div>
 		<!-- End Air -->
 
 		<header id="main-header">
@@ -271,6 +324,27 @@
 	<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
 	<script>
 		// Air
+		const wolvesWrapper = document.getElementById('wolves-wrapper')
+		const wolvesBG = wolvesWrapper.querySelectorAll('div[id*="wolves-bg-"]')
+
+		const tl = gsap.timeline({
+			scrollTrigger: {
+				trigger: wolvesWrapper,
+				start: 'top top',
+				scrub: true,
+				// markers: true
+			}
+		})
+
+		wolvesBg.foreach(bg => {
+			const bgSpeed = bg.getAttribute('data-speed')
+
+			tl.to(bg, {
+				y: 60 * bgSpeed,
+				duration: 2
+			}, 0)
+		})
+
 		// End Air
 
 		// Lenis - smooth scrolling
